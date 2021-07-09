@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { AuthenService } from '../services/external/authen/authen.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ngrxstore-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'ng12-s24-ngrxstore';
+export class AppComponent implements OnInit {
+  constructor(
+  	private authServ: AuthenService
+  ) { }
+
+  ngOnInit(): void {
+  	this.authServ.autoLogin()
+  }
 }
