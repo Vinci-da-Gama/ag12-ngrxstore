@@ -14,7 +14,7 @@ import { AuthenRespInterface } from '../../../contracts/interfaces/authen/authen
 import { EmailPswdInterface } from '../../../contracts/interfaces/emailPswd/email-pswd';
 import { UserMode } from '../../../contracts/modes/user-mode/user';
 import { AppStoreStateInterface } from '../../../contracts/store/AppStoreStateInterface';
-import { Login, Logout } from '../../../store/authStore/auth.actions';
+import { AuthenticateSuccess, Logout } from '../../../store/authStore/auth.actions';
 
 @Injectable({
 	providedIn: 'root'
@@ -30,7 +30,20 @@ export class AuthenService {
 		private store: Store<AppStoreStateInterface>
 	) { }
 
-	signup = (data: EmailPswdInterface) => {
+	setLogoutTimer(expirationDuration: number) {
+	  this.tokenExpirationTimer = setTimeout(() => {
+		this.store.dispatch(Logout());
+	  }, expirationDuration);
+	}
+
+	clearLogoutTimer() {
+	  if (this.tokenExpirationTimer) {
+		clearTimeout(this.tokenExpirationTimer);
+		this.tokenExpirationTimer = null;
+	  }
+	}
+
+	/* signup = (data: EmailPswdInterface) => {
 		return this.httpCli.post<AuthenRespInterface>(`${apiRelated.authBaseUrl}${apiRelated.su}?key=${environment.firebaseApiKey}`, {
 			...data,
 			returnSecureToken: true
@@ -58,9 +71,9 @@ export class AuthenService {
 				);
 			})
 		);
-	}
+	} */
 
-	autoLogin = () => {
+	/* autoLogin = () => {
 		const storedUser: UserMode = this.getUserDataToLocalStorage();
 		if (!storedUser || new Date().getTime() >= new Date(storedUser['_tokenExpiredOnDate']).getTime()) {
 			return;
@@ -73,13 +86,13 @@ export class AuthenService {
 		);
 		if (loadedUser.token) {
 			// this.userWatcher.next(loadedUser);
-			this.store.dispatch(Login({ user: loadedUser }));
+			this.store.dispatch(AuthenticateSuccess({ user: loadedUser }));
 			const expirationTimeSpan: number = new Date(storedUser['_tokenExpiredOnDate']).getTime() - new Date().getTime();
 			this.autoLogout(expirationTimeSpan);
 		}
-	}
+	} */
 
-	logout = () => {
+	/* logout = () => {
 		// this.userWatcher.next(null);
 		this.store.dispatch(Logout());
 		this.router.navigate(['/auth']);
@@ -88,21 +101,21 @@ export class AuthenService {
 			clearTimeout(this.tokenExpirationTimer);
 		}
 		this.tokenExpirationTimer = null;
-	}
+	} */
 
-	autoLogout = (expirationDuraction: number) => {
+	/* autoLogout = (expirationDuraction: number) => {
 		this.tokenExpirationTimer = setTimeout(() => {
-			this.logout();
+			// this.logout();
 		}, expirationDuraction)
-	}
+	} */
 
-	private setUserDataToLocalStorage = (user: UserMode): void => {
+	/* private setUserDataToLocalStorage = (user: UserMode): void => {
 		localStorage.setItem('userData', JSON.stringify(user))
 	}
 
-	private getUserDataToLocalStorage = () => localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData') || '');
+	private getUserDataToLocalStorage = () => localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData') || ''); */
 
-	private handleAuthenticatedUser = (
+	/* private handleAuthenticatedUser = (
 		email: string,
 		userLocalId: string,
 		token: string,
@@ -112,7 +125,7 @@ export class AuthenService {
 		const user = new UserMode(email, userLocalId, token,  expirationDate);
 		console.log('113 -- user: ', user);
 		// this.userWatcher.next(user);
-		this.store.dispatch(Login({ user }));
+		this.store.dispatch(AuthenticateSuccess({ user }));
 		this.setUserDataToLocalStorage(user);
 	}
 
@@ -145,6 +158,6 @@ export class AuthenService {
 			break;
 		}
 		return throwError(errMsg);
-	}
+	} */
 
 }

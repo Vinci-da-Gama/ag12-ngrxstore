@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { environment } from '../environments/environment'; // Angular CLI environment
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { HeaderComponent } from '../shareCompos/header/header.component';
 import { NoFoundComponent } from '../shareCompos/no-found/no-found.component';
 
 import { reducers } from '../store/appStore/app.reducers';
+import { AuthEffects } from '../store/authStore/auth.effects';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { reducers } from '../store/appStore/app.reducers';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([ AuthEffects ]),
     // Instrumentation must be imported after importing StoreModule (config is optional)
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

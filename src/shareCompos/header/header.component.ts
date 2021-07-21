@@ -7,6 +7,7 @@ import { UserMode } from '../../contracts/modes/user-mode/user';
 import { AppStoreStateInterface } from '../../contracts/store/AppStoreStateInterface';
 import { DataStorageService } from '../../services/external/data-storage.service';
 import { AuthenService } from '../../services/external/authen/authen.service';
+import { Logout } from '../../store/authStore/auth.actions';
 
 @Component({
   selector: 'ngrxstore-header',
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(map(({ user }): UserMode | null => user))
       .subscribe((user) => {
         this.isAuthened = !!user;
-        console.log('30 -- is User authend? ', this.isAuthened)
+        console.log('31 -- is User authend? ', this.isAuthened)
       })
   }
 
@@ -40,7 +41,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout = () => {
-    this.authServ.logout();
+    // this.authServ.logout();
+    this.store.dispatch(Logout());
   }
 
   ngOnDestroy(): void {
