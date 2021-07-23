@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnDestroy, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
@@ -27,8 +27,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   @ViewChild(AlertPlaceholderDirective) alertHost!: AlertPlaceholderDirective;
 
   constructor(
-    private authServ: AuthenService,
-    private router: Router,
+    /* private authServ: AuthenService,
+    private router: Router, */
     private compoFactRver: ComponentFactoryResolver,
     private store: Store<AppStoreStateInterface>
   ) { }

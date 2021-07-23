@@ -6,6 +6,7 @@ import { AppStoreStateInterface } from '../../contracts/store/AppStoreStateInter
 import * as SlActions from '../slStore/sl.actions';
 import shoppingListReducer from '../slStore/sl.reducer';
 import { AuthReducer } from '../authStore/auth.reducer';
+import { recipeReducer } from '../recipeStore/recipe.reducer';
 
 /**
  * if use old way to do action, need to do this;
@@ -16,5 +17,6 @@ type StoreActionsType = SlActions.SlActionType;
 
 export const reducers: ActionReducerMap<AppStoreStateInterface, StoreActionsType> = {
 	shoppingListReducer,
-	AuthReducer
+	AuthReducer,
+	recipeReducer
 }

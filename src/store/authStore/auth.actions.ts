@@ -23,7 +23,7 @@ export const SignupStart = createAction(SIGNUP_START, props<EmailPswdInterface>(
 
 export const AutoLogin = createAction(AUTO_LOGIN);
 
-export const AuthenticateSuccess = createAction(AUTHENTICATE_SUCCESS, props<{user: UserMode}>());
+export const AuthenticateSuccess = createAction(AUTHENTICATE_SUCCESS, props<{user: UserMode, redirect: boolean}>());
 
 export const AuthenticateFail = createAction(AUTHENTICATE_FAIL, props<{ authError: string }>());
 
