@@ -27,7 +27,7 @@ import { RecipeEffects } from '../store/recipeStore/recipe.effects';
     NoFoundComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     // StoreModule.forRoot(reducers),

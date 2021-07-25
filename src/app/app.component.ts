@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common'
 import { Store } from '@ngrx/store';
 
 import { AppStoreStateInterface } from '../contracts/store/AppStoreStateInterface';
@@ -13,11 +14,16 @@ import { AutoLogin } from '../store/authStore/auth.actions';
 export class AppComponent implements OnInit {
   constructor(
   	private authServ: AuthenService,
-    private store: Store<AppStoreStateInterface>
+    private store: Store<AppStoreStateInterface>,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
   	// this.authServ.autoLogin()
-    this.store.dispatch(AutoLogin());
+    if (isPlatformBrowser(this.platformId)) {
+      // only the platform is browser, then use autoLogin, due to it has LocalStorage;
+      // localStorage is the browser only
+      this.store.dispatch(AutoLogin());
+    }
   }
 }
